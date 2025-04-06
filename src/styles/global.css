@@ -1,0 +1,58 @@
+:root {
+  --color-primary: rgb(234, 80, 69);
+  --color-secondary: #ef7925;
+  --color-accent: rgb(253, 215, 87);
+  --color-background: #ededed;
+  --color-text: #233249;
+}
+
+@font-face {
+  font-family: "helvetica_55Roman";
+  src:
+    url("../fonts/helvetica_neue_lt_std_55_roman-webfont.woff2") format("woff2"),
+    url("../fonts/helvetica_neue_lt_std_55_roman-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "helvetica_77BoldCondensed";
+  src:
+    url("../fonts/helvetica_neue_lt_std_77_bold_condensed-webfont.woff2")
+      format("woff2"),
+    url("../fonts/helvetica_neue_lt_std_77_bold_condensed-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+button {
+  font-family: "helvetica_77BoldCondensed", sans-serif;
+  color: var(--color-text);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+}
+h2 {
+  font-size: 1.167rem;
+  margin: 0.5rem 0;
+}
+h3 {
+  font-size: 0.833rem;
+  margin: 0.5rem 0;
+}
+p {
+  font-size: 0.75rem;
+  margin: 0.5rem 0;
+  font-family: "helvetica_55Roman", sans-serif;
+  color: var(--color-text);
+}
