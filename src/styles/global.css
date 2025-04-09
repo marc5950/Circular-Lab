@@ -6,6 +6,12 @@
   --color-text: #233249;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @font-face {
   font-family: "helvetica_55Roman";
   src:
@@ -33,7 +39,8 @@ h4,
 h5,
 h6,
 li,
-button {
+button,
+a {
   font-family: "helvetica_77BoldCondensed", sans-serif;
   color: var(--color-text);
 }
@@ -55,4 +62,13 @@ p {
   margin: 0.5rem 0;
   font-family: "helvetica_55Roman", sans-serif;
   color: var(--color-text);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
