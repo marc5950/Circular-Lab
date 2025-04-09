@@ -6,7 +6,7 @@ import search from "../assets/search.svg";
 import logo_stor from "../assets/logo_stor.png";
 ---
 
-<div class="flexcol mobile header">
+<div class="flexcol mobile">
   <div class="bar flex">
     <div class="logo">
       <img src={burger.src} alt="nav" />
@@ -23,7 +23,7 @@ import logo_stor from "../assets/logo_stor.png";
   </div>
 </div>
 
-<div class="desktop header">
+<div class="desktop">
   <div class="bar flex">
     <a href="/" class="logo">
       <img height="37" src={logo_stor.src} alt="logo" />
@@ -124,7 +124,7 @@ import logo_stor from "../assets/logo_stor.png";
     color: var(--color-text);
   }
 
-  @media (min-width: 1050px) {
+  @media (min-width: 1150px) {
     .mobile {
       display: none;
     }
@@ -156,8 +156,14 @@ import logo_stor from "../assets/logo_stor.png";
     }
     a,
     h3 {
+      font-size: 1.1rem;
       text-decoration: none;
       color: #fff;
+    }
+
+    .bar,
+    .searchbar {
+      height: 65px;
     }
   }
 </style>
@@ -166,14 +172,18 @@ import logo_stor from "../assets/logo_stor.png";
   const søg = document.querySelector(".search");
   const searchbar = document.querySelector(".searchbar");
 
-  søg.addEventListener("click", () => {
-    searchbar.classList.toggle("hidden");
-  });
+  if (søg && searchbar) {
+    søg.addEventListener("click", () => {
+      searchbar.classList.toggle("hidden");
+    });
+  }
 
   const søgD = document.querySelector(".searchD");
   const searchbarD = document.querySelector(".searchbarD");
 
-  søgD.addEventListener("click", () => {
-    searchbarD.classList.toggle("hidden");
-  });
+  if (søgD && searchbarD) {
+    søgD.addEventListener("click", () => {
+      searchbarD.classList.toggle("hidden");
+    });
+  }
 </script>

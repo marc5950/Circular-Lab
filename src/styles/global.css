@@ -51,15 +51,18 @@ h1 {
 }
 h2 {
   font-size: 1.167rem;
+  line-height: 20px;
   margin: 0.5rem 0;
 }
 h3 {
   font-size: 0.833rem;
+  line-height: 15px;
   margin: 0.5rem 0;
 }
 p {
   font-size: 0.75rem;
   margin: 0.5rem 0;
+  line-height: 13px;
   font-family: "helvetica_55Roman", sans-serif;
   color: var(--color-text);
 }
@@ -68,7 +71,7 @@ p {
   display: flex;
   align-items: center;
 }
-.flex-column {
+.flexcol {
   display: flex;
   flex-direction: column;
 }
