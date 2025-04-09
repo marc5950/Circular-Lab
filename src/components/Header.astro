@@ -6,38 +6,56 @@ import search from "../assets/search.svg";
 import logo_stor from "../assets/logo_stor.png";
 ---
 
-<div class="flex mobile header">
-  <div class="logo">
-    <img src={burger.src} alt="nav" />
-    <img height="23" src={logo_lille.src} alt="logo" />
+<div class="flexcol mobile header">
+  <div class="bar flex">
+    <div class="logo">
+      <img src={burger.src} alt="nav" />
+      <a href="#"><img height="23" src={logo_lille.src} alt="logo" /></a>
+    </div>
+    <div class="utilities">
+      <div class="la"><p>EN</p></div>
+      <div class="search"><img src={search.src} alt="søg" /></div>
+    </div>
   </div>
-  <div class="utilities">
-    <div class="la"><p>EN</p></div>
-    <div class="search"><img src={search.src} alt="søg" /></div>
+  <div class="searchbar hidden flex">
+    <input type="text" placeholder="Søg ..." />
+    <div class="search1"><p>SØG</p></div>
   </div>
 </div>
-<div class="flex desktop header">
-  <div class="logo">
-    <img height="37" src={logo_stor.src} alt="logo" />
+
+<div class="desktop header">
+  <div class="bar flex">
+    <a href="/" class="logo">
+      <img height="37" src={logo_stor.src} alt="logo" />
+    </a>
+    <nav>
+      <a class="navpunkt" href="#"><h3>Studiehåndbog</h3></a>
+      <a class="navpunkt" href="#"><h3>Vejledning og støtte</h3></a>
+      <a class="navpunkt" href="#"><h3>Praktik</h3></a>
+      <a class="navpunkt" href="#"><h3>Internationale muligheder</h3></a>
+      <a class="navpunkt" href="#"><h3>Studieliv og Faciliteter</h3></a>
+    </nav>
+    <div class="utilities">
+      <div class="la"><p>EN</p></div>
+      <div class="search searchD"><img src={search.src} alt="søg" /></div>
+    </div>
   </div>
-  <nav>
-    <div class="navpunkt"><a href="#">Studiehåndbog</a></div>
-    <div class="navpunkt"><a href="#">Vejledning og støtte</a></div>
-    <div class="navpunkt"><a href="#">Praktik</a></div>
-    <div class="navpunkt"><a href="#">Internationale muligheder</a></div>
-    <div class="navpunkt"><a href="#">Studieliv og Faciliteter</a></div>
-  </nav>
-  <div class="utilities">
-    <div class="la"><p>EN</p></div>
-    <div class="search"><img src={search.src} alt="søg" /></div>
+  <div class="searchbar searchbarD hidden flex">
+    <input type="text" placeholder="Søg ..." />
+    <div class="search1"><p>SØG</p></div>
   </div>
 </div>
 
 <style>
+  .hidden {
+    height: 0px !important;
+    overflow: hidden;
+  }
   .desktop {
     display: none;
   }
-  .header {
+
+  .bar {
     background-color: var(--color-text);
     justify-content: space-between;
     width: 100%;
@@ -54,6 +72,7 @@ import logo_stor from "../assets/logo_stor.png";
     align-self: stretch;
     width: max-content;
     justify-content: flex-end;
+    cursor: pointer;
   }
   .la {
     display: flex;
@@ -71,6 +90,39 @@ import logo_stor from "../assets/logo_stor.png";
     aspect-ratio: 1/1;
     background-color: var(--color-primary);
   }
+  .search1 {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    background-color: #d9463d;
+    cursor: pointer;
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .searchbar {
+    background-color: var(--color-primary);
+    height: 54px;
+    justify-content: space-between;
+    gap: 10px;
+    transition: height 0.3s ease-in-out;
+  }
+  input {
+    padding: 0px 20px;
+    background-color: var(--color-primary);
+    border: none;
+    color: #00000047;
+    height: 100%;
+    width: 100%;
+  }
+  input:focus {
+    outline: none;
+    color: var(--color-text);
+  }
 
   @media (min-width: 1050px) {
     .mobile {
@@ -78,6 +130,7 @@ import logo_stor from "../assets/logo_stor.png";
     }
     .desktop {
       display: flex;
+      flex-direction: column;
     }
     .logo {
       padding: 0px 30px;
@@ -101,9 +154,26 @@ import logo_stor from "../assets/logo_stor.png";
     .navpunkt:hover {
       background-color: var(--color-secondary);
     }
-    a {
+    a,
+    h3 {
       text-decoration: none;
       color: #fff;
     }
   }
 </style>
+
+<script>
+  const søg = document.querySelector(".search");
+  const searchbar = document.querySelector(".searchbar");
+
+  søg.addEventListener("click", () => {
+    searchbar.classList.toggle("hidden");
+  });
+
+  const søgD = document.querySelector(".searchD");
+  const searchbarD = document.querySelector(".searchbarD");
+
+  søgD.addEventListener("click", () => {
+    searchbarD.classList.toggle("hidden");
+  });
+</script>
