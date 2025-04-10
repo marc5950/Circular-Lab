@@ -1,6 +1,22 @@
 ---
 //@ts-nocheck
+//@ts-nocheck
 import Layout from "../layouts/Layout.astro";
+import Listview from "../components/Listview.astro";
+const url = "https://zrnyykbdrxfeksfkhkdf.supabase.co/rest/v1/events?select=*";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpybnl5a2JkcnhmZWtzZmtoa2RmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM4NDQ1MzUsImV4cCI6MjA1OTQyMDUzNX0.4yQJs3k6aA15OGExcR9DN4QAC5V8xngjk8lBGPRwkf4";
+const options = {
+  method: "GET",
+  headers: {
+    apikey: key,
+    Authorization: `Bearer ${key}`,
+    "Content-Type": "application/json",
+  },
+};
+
+const data = await fetch(url, options).then((res) => res.json());
+console.log(data);
 import Listview from "../components/Listview.astro";
 const url = "https://zrnyykbdrxfeksfkhkdf.supabase.co/rest/v1/events?select=*";
 const key =

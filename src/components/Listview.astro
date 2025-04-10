@@ -1,0 +1,57 @@
+---
+//@ts-nocheck
+import test from "../assets/default.jpg";
+const { events } = Astro.props;
+
+// Format time to remove seconds
+const formatTime = (time) => time.slice(0, 5);
+
+// Format date to "9. APRIL 2025"
+const formatDate = (date) => {
+  const options = { day: "numeric", month: "long", year: "numeric" };
+  return new Intl.DateTimeFormat("da-DK", options)
+    .format(new Date(date))
+    .toUpperCase();
+};
+---
+
+<div>
+  <a href="#">
+    <img src={test.src} alt="" />
+    <div class="info">
+      <h2>{events.titel}</h2>
+      <p>
+        {formatDate(events.date)}
+        {formatTime(events.start)}-{formatTime(events.end)}
+      </p>
+      <p>{events.desc}</p>
+    </div>
+  </a>
+</div>
+
+<style>
+  div {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-secondary);
+    width: 160px;
+    border-radius: 10px;
+  }
+  .info {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+    align-self: stretch;
+  }
+  img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 10px 10px 0px 0px;
+    object-fit: cover;
+  }
+  a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+</style>
