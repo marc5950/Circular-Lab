@@ -1,7 +1,67 @@
 ---
+//@ts-nocheck
 import Layout from "../layouts/Layout.astro";
+import Listview from "../components/Listview.astro";
+const url = "https://zrnyykbdrxfeksfkhkdf.supabase.co/rest/v1/events?select=*";
+const key =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpybnl5a2JkcnhmZWtzZmtoa2RmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM4NDQ1MzUsImV4cCI6MjA1OTQyMDUzNX0.4yQJs3k6aA15OGExcR9DN4QAC5V8xngjk8lBGPRwkf4";
+const options = {
+  method: "GET",
+  headers: {
+    apikey: key,
+    Authorization: `Bearer ${key}`,
+    "Content-Type": "application/json",
+  },
+};
+
+const data = await fetch(url, options).then((res) => res.json());
+console.log(data);
 ---
 
 <Layout title="Circular Lab">
-  <h2>Hello</h2>
+  <div class="hero">
+    <img src="" alt="" />
+  </div>
+  <div class="overskrift flex"><h1>Circular Lab</h1></div>
+  <div class="om_lab flex">
+    <div class="om_lab1 flex">
+      <p>
+        Circular Lab er dit kreative frirum på KEA, hvor vi sammen nørder alt
+        fra cirkulære forretningsidéer til bæredygtigt design og strategi. <br
+        /><br />
+        Er du studerende, underviser eller en del af et samarbejdende netværk? Så
+        er du mere end velkommen! Circular Lab er for alle jer, der vil tænke nyt
+        og handle grønt – og vi arbejder tæt sammen med de andre labs på KEA, så
+        idéerne kan få endnu mere power. <br /><br />
+        Her er plads til at teste, fejle, lære og skabe – sammen.
+      </p>
+    </div>
+  </div>
+  <div class="paktisk flex">
+    <div class="find_os"></div>
+    <div class="praktisk_info"></div>
+  </div>
+  <div class="events">
+    {data.map((events) => <Listview {events} />)}
+  </div>
 </Layout>
+
+<style>
+  .overskrift {
+    justify-content: center;
+    padding: 50px 0px;
+    background-color: var(--color-secondary);
+  }
+  .om_lab {
+    background-color: var(--color-background);
+  }
+  .om_lab1 {
+    text-align: center;
+    padding: 50px 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  @media (min-width: 768px) {
+  }
+</style>
