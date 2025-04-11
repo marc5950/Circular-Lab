@@ -28,26 +28,7 @@ export async function getStaticPaths() {
   });
 }
 
-// Hent slug fra URL-parametrene
-const { slug } = Astro.params;
-
-// Hent det specifikke event med det matchende slug
-const url = `https://zrnyykbdrxfeksfkhkdf.supabase.co/rest/v1/events?slug=eq.${slug}`;
-const key =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpybnl5a2JkcnhmZWtzZmtoa2RmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM4NDQ1MzUsImV4cCI6MjA1OTQyMDUzNX0.4yQJs3k6aA15OGExcR9DN4QAC5V8xngjk8lBGPRwkf4";
-const options = {
-  method: "GET",
-  headers: {
-    apikey: key,
-    Authorization: `Bearer ${key}`,
-    "Content-Type": "application/json",
-  },
-};
-
-// Dette returnerer et array, men vi forventer kun ét resultat
-const events = await fetch(url, options).then((res) => res.json());
-const event = events[0]; // Få det første (og forhåbentlig eneste) resultat
-console.log(event);
+const { event } = Astro.props;
 
 // Formatér funktioner som tidligere
 const formatTime = (time) => time.slice(0, 5);
@@ -61,5 +42,5 @@ const formatDate = (date) => {
 ---
 
 <Layout title={event.title}>
-  <h1>Hello {event.titel}</h1>
+  <h1>Hello {event.titel} {event.start}</h1>
 </Layout>
