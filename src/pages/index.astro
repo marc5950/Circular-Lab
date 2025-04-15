@@ -1,6 +1,9 @@
 ---
 //@ts-nocheck
 import Layout from "../layouts/Layout.astro";
+import herologo from "../assets/herologo.png";
+import lokation from "../assets/lokation.png";
+import "../styles/global.css";
 import Listview from "../components/Listview.astro";
 const url = "https://zrnyykbdrxfeksfkhkdf.supabase.co/rest/v1/events?select=*";
 const key =
@@ -19,10 +22,10 @@ console.log(data);
 ---
 
 <Layout title="Circular Lab">
-  <div class="hero">
-    <img src="" alt="" />
+  <div class="hero flex">
+    <img src={herologo.src} alt="" />
   </div>
-  <div class="overskrift flex"><h1>Circular Lab</h1></div>
+
   <div class="om_lab flex">
     <div class="om_lab1 flex">
       <p>
@@ -38,11 +41,33 @@ console.log(data);
     </div>
   </div>
   <div class="paktisk flex">
-    <div class="find_os"></div>
+    <div class="find_os">
+      <h3>Find os her</h3>
+      <p>
+        Circular Lab holder til på Guldbergsgade 29N, bygning A, lokale A129.
+      </p>
+      <img src={lokation.src} alt="" />
+    </div>
+    <h2>Praktisk</h2>
+    <h3>Åbningstider</h3>
+    <p>
+      Circular Lab er åbent mandag til fredag 8.30 – 22.00 Du velkommen til at
+      benytte lokalet i åbningstiden, så længe der ikke foregår undervisning,
+      workshops eller andet. (Tjek vores kalender for at se kommende events).
+      Åbningstider for vejledning med Lab Manager: Se kalender.
+    </p>
     <div class="praktisk_info"></div>
   </div>
-  <div class="events">
-    {data.map((events) => <Listview {events} />)}
+  <div class="events flexcol">
+    <h2>Events // Circular Lab</h2>
+    <p style="text-align: center;">
+      Følg med her i kalenderen og hold dig opdateret på, hvad der sker i
+      Circular Lab. Vejledninger, foredrag, events og lignende vil løbende blive
+      lagt ind i kalenderen.
+    </p>
+    <div class="listview">
+      {data.map((events) => <Listview {events} />)}
+    </div>
   </div>
 </Layout>
 
@@ -60,6 +85,19 @@ console.log(data);
     padding: 50px 20px;
     max-width: 1000px;
     margin: auto;
+  }
+  .events {
+    align-items: center;
+    padding: 50px 20px;
+  }
+  .listview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: min-content;
+    gap: 20px;
+    padding: 50px 0px;
+    align-items: stretch;
+    width: 100%;
   }
 
   @media (min-width: 768px) {
