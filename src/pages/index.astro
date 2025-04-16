@@ -29,22 +29,27 @@ console.log(data);
     <img class="herotitel" src={herotitel.src} alt="" />
   </div>
 
-  <div class="om_lab flexcol">
-    <div class="om_lab1 flex">
+  <div class="om_lab flex">
+    <div class="om_lab1 flexcol">
       <p>
-        Circular Lab er dit kreative frirum på KEA, hvor vi sammen nørder alt
-        fra cirkulære forretningsidéer til bæredygtigt design og strategi. <br
-        /><br />
+        Circular Lab er dit <b>kreative frirum</b> på KEA, hvor vi sammen nørder
+        alt fra <b>cirkulære forretningsidéer</b> til <b
+          >bæredygtigt design og strategi.</b
+        >
+        <br /><br />
         Er du studerende, underviser eller en del af et samarbejdende netværk? Så
-        er du mere end velkommen! Circular Lab er for alle jer, der vil tænke nyt
-        og handle grønt – og vi arbejder tæt sammen med de andre labs på KEA, så
-        idéerne kan få endnu mere power. <br /><br />
-        Her er plads til at teste, fejle, lære og skabe – sammen.
+        er du mere end velkommen! Circular Lab er for alle jer, der vil <b
+          >tænke nyt og handle grønt</b
+        > – og vi arbejder tæt sammen med de andre labs på KEA, så idéerne kan få
+        endnu mere power. <br /><br />
+        Her er plads til at <b>teste, fejle, lære og skabe – sammen.</b>
       </p>
       <div class="some flexcol">
         <div class="flex">
-          <h2>Se meget mere på vores instagram</h2>
-          <a href="#"><img src="" alt="Instagram" /></a>
+          <a href="#"
+            ><h2>Se meget mere på vores instagram</h2>
+            <img src="" alt="Instagram" /></a
+          >
         </div>
         <div class="flex">
           <img src="" alt="oplæg fra insta" /><img
@@ -106,6 +111,10 @@ console.log(data);
       Circular Lab. Vejledninger, foredrag, events og lignende vil løbende blive
       lagt ind i kalenderen.
     </p>
+    <div class="filtrering">
+      <button>Nyeste</button>
+      <button>Kommende</button>
+    </div>
     <div class="listview">
       {data.map((events) => <Listview {events} />)}
     </div>

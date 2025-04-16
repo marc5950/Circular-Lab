@@ -16,7 +16,7 @@ const formatDate = (date) => {
 };
 ---
 
-<div>
+<div class="ydre">
   <a href={`/events/${events.slug}`}>
     <img src={events.img} alt="" />
     <div class="info">
@@ -31,12 +31,17 @@ const formatDate = (date) => {
 </div>
 
 <style>
-  div {
+  .ydre {
     display: flex;
     flex-direction: column;
     background-color: var(--color-secondary);
     width: 100%;
     border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  .ydre:hover {
+    scale: 1.05;
+    transition: all 0.3s ease-in-out;
   }
   .info {
     display: flex;
