@@ -1,8 +1,11 @@
 ---
 //@ts-nocheck
 import Layout from "../layouts/Layout.astro";
-import herologo from "../assets/herologo.png";
+import herobg from "../assets/herobg.png";
+import herotitel from "../assets/herotitel.png";
 import lokation from "../assets/lokation.png";
+import profil from "../assets/profil.svg";
+import DropMenu from "../components/DropMenu.astro";
 import "../styles/global.css";
 import Listview from "../components/Listview.astro";
 const url = "https://zrnyykbdrxfeksfkhkdf.supabase.co/rest/v1/events?select=*";
@@ -22,8 +25,8 @@ console.log(data);
 ---
 
 <Layout title="Circular Lab">
-  <div class="hero flex">
-    <img src={herologo.src} alt="" />
+  <div class="hero">
+    <img class="herotitel" src={herotitel.src} alt="" />
   </div>
 
   <div class="om_lab flex">
@@ -40,24 +43,50 @@ console.log(data);
       </p>
     </div>
   </div>
-  <div class="paktisk flex">
-    <div class="find_os">
-      <h3>Find os her</h3>
-      <p>
-        Circular Lab holder til på Guldbergsgade 29N, bygning A, lokale A129.
-      </p>
-      <img src={lokation.src} alt="" />
+  <div class="praktisk_ydre">
+    <div class="praktisk flexcol">
+      <div class="find_os flexcol">
+        <div>
+          <h3>Find os her</h3>
+          <p>
+            Circular Lab holder til på Guldbergsgade 29N, bygning A, lokale
+            A129.
+          </p>
+        </div>
+        <img src={lokation.src} alt="" />
+      </div>
+      <div>
+        <h2>Praktisk</h2>
+        <div>
+          <h3>Åbningstider</h3>
+          <p>
+            Circular Lab er åbent mandag til fredag 8.30 – 22.00 <br /><br />
+            Du velkommen til at benytte lokalet i åbningstiden, så længe der ikke
+            foregår undervisning, workshops eller andet. <br /><br /> Åbningstider
+            for vejledning med Lab Manager: <a href="#">Se kalender.</a>
+          </p>
+        </div>
+        <div>
+          <h3>Adgang til labbet</h3><p>
+            Labbet er placeret på Guldbergsgade 29N, Lokale A129.
+          </p>
+        </div>
+        <div>
+          <h3>Kontakt</h3><p>
+            Email: <a href="mailto:circular@kea.dk">circular@kea.dk</a>
+          </p>
+        </div>
+        <div class="flex" style="gap: 17px;">
+          <img src={profil.src} alt="" /><div class="">
+            <h3>Nikolaj Storm Hauge Tost</h3><p>
+              Email: <a href="mailto:nito@kea.dk">nito@kea.dk</a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <h2>Praktisk</h2>
-    <h3>Åbningstider</h3>
-    <p>
-      Circular Lab er åbent mandag til fredag 8.30 – 22.00 Du velkommen til at
-      benytte lokalet i åbningstiden, så længe der ikke foregår undervisning,
-      workshops eller andet. (Tjek vores kalender for at se kommende events).
-      Åbningstider for vejledning med Lab Manager: Se kalender.
-    </p>
-    <div class="praktisk_info"></div>
   </div>
+  <div class="events_ydre flex"></div>
   <div class="events flexcol">
     <h2>Events // Circular Lab</h2>
     <p style="text-align: center;">
@@ -67,6 +96,12 @@ console.log(data);
     </p>
     <div class="listview">
       {data.map((events) => <Listview {events} />)}
+    </div>
+  </div>
+  <div class="tilbyder_ydre flex">
+    <div class="tilbyder flexcol">
+      <h2>Hvad tilbyder vi?</h2>
+      <DropMenu />
     </div>
   </div>
 </Layout>
@@ -83,16 +118,19 @@ console.log(data);
   .om_lab1 {
     text-align: center;
     padding: 50px 20px;
-    max-width: 1000px;
+    max-width: 600px;
     margin: auto;
   }
   .events {
     align-items: center;
     padding: 50px 20px;
+    max-width: 1000px;
+    margin: auto;
   }
+
   .listview {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     grid-auto-rows: min-content;
     gap: 20px;
     padding: 50px 0px;
@@ -100,6 +138,59 @@ console.log(data);
     width: 100%;
   }
 
+  .hero {
+    background-color: var(--color-text);
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-position: center;
+    background-image: url("../assets/herobg.png");
+
+    .herotitel {
+      display: flex;
+      width: 100%;
+      max-width: 1000px;
+      place-self: center;
+    }
+  }
+
+  .praktisk {
+    background-color: var(--color-secondary);
+    align-items: center;
+    padding: 50px 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
+  .praktisk_ydre {
+    background-color: var(--color-secondary);
+    justify-content: center;
+  }
+
+  .find_os {
+    background-color: #fff;
+    padding: 10px;
+    gap: 14px;
+    border-radius: 10px;
+    margin: 50px 0;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .tilbyder {
+    max-width: 1000px;
+    padding: 50px 20px;
+    gap: 10px;
+  }
+  .tilbyder_ydre {
+    background-color: var(--color-secondary);
+    justify-content: center;
+  }
   @media (min-width: 768px) {
+    .praktisk {
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+    }
   }
 </style>

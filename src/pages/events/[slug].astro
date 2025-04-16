@@ -1,6 +1,7 @@
 ---
 //@ts-nocheck
 import Layout from "../../layouts/Layout.astro";
+import lokation from "../../assets/lokation.png";
 import "../../styles/global.css";
 
 export async function getStaticPaths() {
@@ -42,5 +43,67 @@ const formatDate = (date) => {
 ---
 
 <Layout title={event.title}>
-  <h1>Hello {event.titel} {event.start}</h1>
+  <div class="bg">
+    <div class="ydre">
+      <div class="indre">
+        <div>
+          <h1>{event.titel}</h1>
+          <p>
+            {formatDate(event.date)}
+            {formatTime(event.start)}-{formatTime(event.end)}
+          </p>
+          <p>Tilmeld dig på safeticket.dk</p>
+        </div>
+        <h2>{event.desc}</h2>
+        <p set:html={event.long_desc} />
+        <h2>Tilmed dig workshoppen på safeticket.dk</h2>
+      </div>
+      <div class="find_os flexcol">
+        <div>
+          <h3>Lokation</h3>
+          <p>
+            Circular Lab, GBG.A 129, Guldbergsgade 29N, 2200 København, Denmark
+          </p>
+        </div>
+        <img src={lokation.src} alt="" />
+      </div>
+    </div>
+  </div>
 </Layout>
+
+<style>
+  .ydre {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
+  .indre {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .find_os {
+    width: 100%;
+    background-color: var(--color-secondary);
+    padding: 10px;
+    gap: 14px;
+    border-radius: 10px;
+    margin: 20px 0;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  @media (min-width: 550px) {
+    .ydre {
+      flex-direction: row;
+      gap: 50px;
+    }
+    .find_os {
+      height: max-content;
+      min-width: 250px;
+    }
+  }
+</style>

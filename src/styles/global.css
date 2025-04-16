@@ -43,6 +43,7 @@ button,
 a {
   font-family: "helvetica_77BoldCondensed", sans-serif;
   color: var(--color-text);
+  text-decoration: none;
 }
 
 h1 {
