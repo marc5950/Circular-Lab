@@ -5,6 +5,7 @@ import herobg from "../assets/herobg.png";
 import herotitel from "../assets/herotitel.png";
 import lokation from "../assets/lokation.png";
 import profil from "../assets/profil.svg";
+import instagram from "../assets/instagram.svg";
 import DropMenu from "../components/DropMenu.astro";
 import "../styles/global.css";
 import Listview from "../components/Listview.astro";
@@ -22,6 +23,35 @@ const options = {
 
 const data = await fetch(url, options).then((res) => res.json());
 console.log(data);
+
+// Find ud af hvilke events der er kommende og hvilke der er forbi
+const today = new Date();
+today.setHours(0, 0, 0, 0); // Nulstil klokkeslæt for sammenligning
+
+// Markér hver event som enten kommende eller tidligere
+const eventsWithStatus = data.map((event) => {
+  const eventDate = new Date(event.date);
+  return {
+    ...event,
+    isUpcoming: eventDate >= today,
+  };
+});
+
+// Sortér alle events efter dato (nyeste først) for "nyeste" visning
+const sortedByNewest = [...eventsWithStatus].sort(
+  (a, b) => new Date(b.date) - new Date(a.date),
+);
+
+// Sortér events med kommende først, derefter tidligere (sorteret efter dato inden for hver gruppe)
+const upcomingEvents = eventsWithStatus
+  .filter((event) => event.isUpcoming)
+  .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+const pastEvents = eventsWithStatus
+  .filter((event) => !event.isUpcoming)
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+const sortedByUpcoming = [...upcomingEvents, ...pastEvents];
 ---
 
 <Layout title="Circular Lab">
@@ -46,9 +76,9 @@ console.log(data);
       </p>
       <div class="some flexcol">
         <div class="flex">
-          <a href="#"
+          <a class="flex" style="gap: 10px;" href="#"
             ><h2>Se meget mere på vores instagram</h2>
-            <img src="" alt="Instagram" /></a
+            <img class="insta_icon" src={instagram.src} alt="Instagram" /></a
           >
         </div>
         <div class="flex">
@@ -103,20 +133,28 @@ console.log(data);
       </div>
     </div>
   </div>
-  <div class="events_ydre flex"></div>
-  <div class="events flexcol">
-    <h2>Events // Circular Lab</h2>
-    <p style="text-align: center;">
-      Følg med her i kalenderen og hold dig opdateret på, hvad der sker i
-      Circular Lab. Vejledninger, foredrag, events og lignende vil løbende blive
-      lagt ind i kalenderen.
-    </p>
-    <div class="filtrering">
-      <button>Nyeste</button>
-      <button>Kommende</button>
-    </div>
-    <div class="listview">
-      {data.map((events) => <Listview {events} />)}
+  <div class="events_ydre flex">
+    <div class="events flexcol">
+      <h2>Events // Circular Lab</h2>
+      <p style="text-align: center;">
+        Følg med her i kalenderen og hold dig opdateret på, hvad der sker i
+        Circular Lab. Vejledninger, foredrag, events og lignende vil løbende
+        blive lagt ind i kalenderen.
+      </p>
+      <div class="filtrering">
+        <button id="kommende-btn" class="filter-btn active">Kommende</button>
+        <button id="nyeste-btn" class="filter-btn">Nyeste</button>
+      </div>
+
+      <!-- Kommende events (vises som standard) -->
+      <div id="kommende-view" class="listview">
+        {sortedByUpcoming.map((events) => <Listview events={events} />)}
+      </div>
+
+      <!-- Nyeste events (skjult som standard) -->
+      <div id="nyeste-view" class="listview hidden">
+        {sortedByNewest.map((events) => <Listview events={events} />)}
+      </div>
     </div>
   </div>
   <div class="tilbyder_ydre flex">
@@ -197,6 +235,34 @@ console.log(data);
       height: auto;
     }
   }
+  .filtrering {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--color-primary);
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    background-color: var(--color-secondary);
+  }
+
+  .filter-btn.active {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  .hidden {
+    display: none;
+  }
   .tilbyder {
     max-width: 1000px;
     padding: 50px 20px;
@@ -205,6 +271,18 @@ console.log(data);
   .tilbyder_ydre {
     background-color: var(--color-secondary);
     justify-content: center;
+  }
+
+  .some {
+    justify-content: center;
+    align-items: center;
+  }
+  .insta_icon {
+    transition: all 0.3s ease-in-out;
+  }
+  .insta_icon:hover {
+    scale: 1.05;
+    transition: all 0.3s ease-in-out;
   }
   @media (min-width: 768px) {
     .praktisk {
@@ -215,3 +293,30 @@ console.log(data);
     }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const nyesteBtn = document.getElementById("nyeste-btn");
+    const kommendeBtn = document.getElementById("kommende-btn");
+    const nyesteView = document.getElementById("nyeste-view");
+    const kommendeView = document.getElementById("kommende-view");
+
+    if (nyesteBtn && kommendeBtn && nyesteView && kommendeView) {
+      // Vis nyeste events
+      nyesteBtn.addEventListener("click", () => {
+        nyesteView.classList.remove("hidden");
+        kommendeView.classList.add("hidden");
+        nyesteBtn.classList.add("active");
+        kommendeBtn.classList.remove("active");
+      });
+
+      // Vis kommende events
+      kommendeBtn.addEventListener("click", () => {
+        kommendeView.classList.remove("hidden");
+        nyesteView.classList.add("hidden");
+        kommendeBtn.classList.add("active");
+        nyesteBtn.classList.remove("active");
+      });
+    }
+  });
+</script>

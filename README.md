@@ -1,48 +1,70 @@
-# Astro Starter Kit: Basics
+# Circular Lab - KEA Website
 
-```sh
-npm create astro@latest -- --template basics
+Dette repository indeholder kildekoden til Circular Lab's website for Københavns Erhvervsakademi (KEA). Hjemmesiden er bygget med Astro og inkluderer information om Circular Lab, deres events, tilbud og praktisk information.
+
+## Funktioner
+
+- Responsivt design til både mobil og desktop
+- Dynamisk events-kalender med filtrering mellem nyeste og kommende events
+- Dropdown-menuer for forskellige informationssektioner
+- Integration med Supabase som backend for events data
+- Event-detaljesider med dynamisk indholdsvisning
+
+## Teknologier
+
+- [Astro](https://astro.build/) - Web framework
+- [Supabase](https://supabase.com/) - Database og API
+- Vanilla JavaScript
+- CSS
+
+## Projektstruktur
+
+- `src/components/` - Genbrugelige UI komponenter
+- `src/layouts/` - Side layouts
+- `src/pages/` - Forskellige sider og routes
+- `src/assets/` - Billeder og andre statiske filer
+- `src/styles/` - CSS styles
+
+## Installation og kørsel
+
+1. Klon dette repository:
+
+```bash
+git clone [repository-url]
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+2. Installer afhængigheder:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npm install
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+3. Start udviklingsserveren:
 
-## 🧞 Commands
+```bash
+npm run dev
+```
 
-All commands are run from the root of the project, from a terminal:
+4. Byg til produktion:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```bash
+npm run build
+```
 
-## 👀 Want to learn more?
+## Features
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Event Filtrering
+
+Hjemmesiden inkluderer en event-filtreringsfunktion, der giver brugerne mulighed for at skifte mellem at se de nyeste events eller kommende events. Implementeringen bruger to separate lister, der vises/skjules baseret på brugerinteraktion.
+
+### Dropdown-menuer
+
+Siden bruger interaktive dropdown-menuer til at organisere information om Circular Lab's tilbud og services. Dette giver en mere overskuelig præsentation af indhold.
+
+### Responsivt design
+
+Hjemmesiden er fuldt responsiv og tilpasser sig forskellige skærmstørrelser, fra mobil til desktop.
+
+## Credits
+
+Udviklet af Gruppe 9 for KEA Circular Lab

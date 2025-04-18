@@ -1,14 +1,26 @@
 ---
 //@ts-nocheck
+// Importerer en genanvendelig `Layout`-komponent fra filen `../layouts/Layout.astro`.
+// Denne komponent definerer den overordnede sidestruktur (f.eks. header, footer, navigation), som bruges på tværs af flere sider for at sikre et ensartet udseende.
 import Layout from "../../layouts/Layout.astro";
+// Importerer et billede
 import lokation from "../../assets/lokation.png";
+import ticket from "../../assets/ticket.svg";
+import arrowright from "../../assets/arrowright.svg";
+import date_icon from "../../assets/date_icon.svg";
+// Importerer CSS-stilark til at anvende globale stilarter på siden.
 import "../../styles/global.css";
+import { date } from "astro:schema";
 
+// Bruger astros getStaticPaths funktion til at generere statiske stier for hver event-side baseret på data hentet fra en Supabase-database.
 export async function getStaticPaths() {
+  // Definerer URL'en til Supabase's REST API-endepunkt for at hente data fra `events`-tabellen.
   const url =
     "https://zrnyykbdrxfeksfkhkdf.supabase.co/rest/v1/events?select=*";
+  // Definerer API-nøglen til autentificering af anmodningen til Supabase.
   const key =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpybnl5a2JkcnhmZWtzZmtoa2RmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM4NDQ1MzUsImV4cCI6MjA1OTQyMDUzNX0.4yQJs3k6aA15OGExcR9DN4QAC5V8xngjk8lBGPRwkf4";
+  // Definerer indstillingerne for anmodningen, herunder HTTP-metoden (GET) og de nødvendige headers til autentificering.
   const options = {
     method: "GET",
     headers: {
@@ -17,10 +29,13 @@ export async function getStaticPaths() {
       "Content-Type": "application/json",
     },
   };
-
+  // Udfører en fetch-anmodning til den angivne URL med de definerede indstillinger og venter på at modtage svaret.
   const data = await fetch(url, options).then((res) => res.json());
   console.log(data);
 
+  // Mapper over de hentede data og opretter en liste over stier, der skal genereres statisk. Hver sti indeholder en parameter `slug`, der svarer til den unikke slug for hver event.
+  // `params`-objektet bruges til at definere de dynamiske ruter i Astro.
+  // `props`-objektet bruges til at sende data til den genererede side.
   return data.map((event) => {
     return {
       params: { slug: event.slug },
@@ -28,12 +43,13 @@ export async function getStaticPaths() {
     };
   });
 }
-
+// Henter data for den specifikke event baseret på slug'en fra URL'en og sender det til komponenten som props.
 const { event } = Astro.props;
 
-// Formatér funktioner som tidligere
+// Funktion til at formatere tid (viser kun timer og minutter)
 const formatTime = (time) => time.slice(0, 5);
 
+// Funktion til at formatere dato (viser dag, måned og år i stort format)
 const formatDate = (date) => {
   const options = { day: "numeric", month: "long", year: "numeric" };
   return new Intl.DateTimeFormat("da-DK", options)
@@ -42,21 +58,36 @@ const formatDate = (date) => {
 };
 ---
 
+<!-- // Bruger Layout-komponenten og sender eventets titel -->
 <Layout title={event.title}>
   <div class="bg">
     <div class="ydre">
       <div class="indre">
         <div>
+          <!-- // Viser eventets billede, titel og dato/tid -->
           <h1>{event.titel}</h1>
-          <p>
-            {formatDate(event.date)}
-            {formatTime(event.start)}-{formatTime(event.end)}
-          </p>
-          <p>Tilmeld dig på safeticket.dk</p>
+          <div class="flex icon">
+            <img src={date_icon.src} alt="" /><p>
+              {formatDate(event.date)}
+            </p><p>
+              {formatTime(event.start)}-{formatTime(event.end)}
+            </p>
+          </div>
+          <div class="flex icon">
+            <a class="icona" href="#">
+              <img src={ticket.src} alt="" />
+              <p>Tilmeld dig på safeticket.dk</p></a
+            >
+          </div>
         </div>
         <h2>{event.desc}</h2>
         <p set:html={event.long_desc} />
-        <h2>Tilmed dig workshoppen på safeticket.dk</h2>
+        <div class="flex icon">
+          <a class="icona" href="#">
+            <img src={arrowright.src} alt="" />
+            <h2>Tilmed dig workshoppen på safeticket.dk</h2></a
+          >
+        </div>
       </div>
       <div class="find_os flexcol">
         <div>
@@ -65,46 +96,60 @@ const formatDate = (date) => {
             Circular Lab, GBG.A 129, Guldbergsgade 29N, 2200 København, Denmark
           </p>
         </div>
+        <!-- // Viser lokationsbillede 
+          // Billedet er importeret fra assets-mappen -->
         <img src={lokation.src} alt="" />
       </div>
     </div>
   </div>
-</Layout>
 
-<style>
-  .ydre {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
-  }
-  .indre {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .find_os {
-    width: 100%;
-    background-color: var(--color-secondary);
-    padding: 10px;
-    gap: 14px;
-    border-radius: 10px;
-    margin: 20px 0;
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
-  @media (min-width: 550px) {
+  <style>
     .ydre {
-      flex-direction: row;
-      gap: 50px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .indre {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .find_os {
-      height: max-content;
-      min-width: 250px;
-      max-width: 500px;
+      width: 100%;
+      background-color: var(--color-secondary);
+      padding: 10px;
+      gap: 14px;
+      border-radius: 10px;
+      margin: 20px 0;
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
-  }
-</style>
+    .icon {
+      gap: 10px;
+    }
+    .icona {
+      display: flex;
+      gap: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+    .icona:hover {
+      scale: 1.05;
+      transition: all 0.3s ease-in-out;
+    }
+    @media (min-width: 550px) {
+      .ydre {
+        flex-direction: row;
+        gap: 50px;
+      }
+      .find_os {
+        height: max-content;
+        min-width: 250px;
+        max-width: 500px;
+      }
+    }
+  </style>
+</Layout>
